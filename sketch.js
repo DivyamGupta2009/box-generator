@@ -2,13 +2,13 @@
 // CREATE GLOBAL VARIABLES
 // For Engine, World, Bodies and any other that you have in mind to make your coding life easier.
 // remember to create an array of boxes.
-var Engine = Matter.Engine,
-    World = Matter.World,
-    Bodies = Matter.Bodies;
+const Engine = Matter.Engine;
+ const World = Matter.World;
+ const Bodies = Matter.Bodies;
  
 var engine;
 var world;
-var box;
+var boxes = [];
  var ground2;
 var ground;
 var gSlider;
@@ -26,26 +26,30 @@ function setup() {
     gSlider.input = map(engine.world.gravity, gSlider.min, gSlider.max, 0, 1);
  
     // Create a ground rectangle that would hold all the boxes and add it to the world.
-    ground = new Ground(200, 100, 50, 400);
+    ground = new Ground(200, 300, 400, 50);
+    
 }
  
 function mousePressed() {
-    if (mousePressed) {
-        // Every time a mouse press occures create a new box.
-    box = new Box(mouseX, mouseY, 80, 80);
-    box.display();
+    if (mouseY<350) {
+        boxes.push(new Box(mouseX, mouseY, random(20, 40), random(20, 40)) );
     }  
 }
- 
+console.log(boxes);
 function draw() {
+    background(0);
+    Engine.update(engine);
     // Draw all the elements including the slider that 
      
-    background(51);
+    
     // This is the value of your gravity. You can optionally show it to the viewer.
     var fVal = gSlider.value();
-    
+
+    for(var i = 0; i<boxes.length; i++){
+        boxes[i].display();
+    }
+
     ground.display();
-    drawSprites();
 }
  
 
